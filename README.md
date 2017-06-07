@@ -103,6 +103,10 @@ The valid breaking methods include:
 - 'natural_break' # must provide a number of cut
 - 'head_tail_break' # must provide a number of cut, i have simplified it so it is not that natural as it is in the paper
 
+-----------
+
+demo map result -- 範例結果
+![density choropleth map](testdata/figure_density_of_some_crime.png?raw=true "density of some crime")
 
 -----------
 
