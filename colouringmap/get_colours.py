@@ -6,7 +6,7 @@ import palettable as pc
 def colour_list(level_list, color_group, color_name, reverse=False):
     hexcs = get_colours(color_group, color_name, reverse=reverse)
     level_set = list(set(level_list))
-    assert len(hexcs)>=len(level_set), 'number of groups should be less than or equal to the number of colors'
+    #assert len(hexcs)>=len(level_set), 'number of groups should be less than or equal to the number of colors'
     colour_list = [ hexcs[v] for v in level_list ]
     colour_tuples = [ (v, hexcs[v]) for v in level_set ]
     return colour_list, colour_tuples

@@ -4,9 +4,9 @@ import numpy as np # percentile, ceil, mean, std
 import jenkspy # jenk's natural break
 
 def get_levels(alist, method='equal_interval', N=5, cuts=[], vmin=None, vmax=None):
-    assert N<=10, 'number of groups should be less than 10'
+    #assert N<=10, 'number of groups should be less than 10'
     methods_list = ['manual','equal_interval','quantile','standard_deviation','natural_break','head_tail_break'  ]
-    assert method in methods_list, "method not implemented."
+    #assert method in methods_list, "method not implemented."
     alist = [ float(i) for i in alist ]
     if method=='manual':
         level_list, cuts = quantile(alist, cuts=cuts)
@@ -30,7 +30,7 @@ def get_levels(alist, method='equal_interval', N=5, cuts=[], vmin=None, vmax=Non
     return level_list, cuts2
 
 def manual(alist, cuts):
-    assert len(cuts)>0, 'please check the list, should be more than 1 element'
+    #assert len(cuts)>0, 'please check the list, should be more than 1 element'
     if max(cuts)<max(alist):
         cuts.append(max(alist))
     level_list = list_convert_to_level(alist, cuts)
@@ -50,7 +50,7 @@ def quantile(alist, N=4, cuts=[]):
         cuts = []
         q = 1./N
         cuts = [ (i+1)*q for i in range(N) ]
-    assert max(cuts) <= 1., "cuts must be float number within 0.~1."
+    #assert max(cuts) <= 1., "cuts must be float number within 0.~1."
     vcuts = [ np.percentile(alist, c*100.) for c in cuts ]
     level_list = list_convert_to_level(alist, vcuts)
     return level_list, vcuts ## use vcuts instead of cuts

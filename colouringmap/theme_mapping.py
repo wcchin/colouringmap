@@ -4,7 +4,7 @@ import breaking_levels
 import get_colours
 
 def colouring_sequence(gdf, colorbysequence,  break_method='equal_interval', break_N=5, break_cuts=[], break_vmin=None, break_vmax=None, color_group='cmocean_sequential', color_name='Turbid_10', reverse=False):
-    assert len(colorbysequence)>0, 'please check the scalecolorby argument'
+    #assert len(colorbysequence)>0, 'please check the scalecolorby argument'
     vector = gdf[colorbysequence].tolist()
     level_list, cuts = breaking_levels.get_levels(vector, method=break_method, N=break_N, cuts=break_cuts, vmin=break_vmin, vmax=break_vmax)
     colour_list, colour_tuples = get_colours.colour_list(level_list, color_group=color_group, color_name=color_name, reverse=False)
@@ -36,7 +36,7 @@ def colouring_category(gdf, colorbycategory='', color_group='tableau', color_nam
     return level_list, colour_list, colour_tuples2
 
 
-def simple_mapping(gdf, colour_list, ax, colour_tuples=None, title=None, xlim=None, ylim=None):
+def simple_mapping(gdf, colour_list, ax, colour_tuples=None, title=None, xlim=None, ylim=None, lw=1.):
     ## todo legend of the color_levels
     import matplotlib.pyplot as plt
     from matplotlib.collections import PatchCollection
@@ -62,7 +62,7 @@ def simple_mapping(gdf, colour_list, ax, colour_tuples=None, title=None, xlim=No
         P = polys[i]
         co = colour_list[i]
         #print co
-        pa = PolygonPatch(P,fc=co,ec="white", alpha=0.9, zorder=4)
+        pa = PolygonPatch(P,fc=co,ec="white", lw=lw, alpha=0.9, zorder=4)
         patches.append(pa)
     ax.add_collection(PatchCollection(patches, match_original=True))
 
