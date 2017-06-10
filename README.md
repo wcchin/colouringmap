@@ -67,7 +67,7 @@ ax = tm.simple_mapping(gdf, colour_list, ax, colour_tuples=colour_tuples, title=
 plt.show()
 ```
 
-colouringmap.theme_mapping has three main functions: colouring_sequence (colouring based on a series of statistic numbers), colouring_category (based on a pre-defined category, or named categories), and simple_mapping. 
+colouringmap.theme_mapping has four main functions: colouring_sequence and colouring_list (colouring based on a series of statistic numbers, _sequence take a gdf and a column name as the input, _list take a list as input), colouring_category (based on a pre-defined category, or named categories), and simple_mapping. 
 
 colouringmap.breaking_levels has a main function: get_levels, which take one list of values (with some other arguments like method, N, cuts), and return two lists: the level_list and cuts point values. 
 
@@ -102,6 +102,9 @@ The valid breaking methods include:
 - 'standard_deviation' # must provide a number of cut, if len(alist)%2==0, then the mean of all values will also be included
 - 'natural_break' # must provide a number of cut
 - 'head_tail_break' # must provide a number of cut, i have simplified it so it is not that natural as it is in the paper
+
+### updated
+2016-06-10: added colouring_list, to take a list as input and return the 3 lists: levels, colours, and colour_tuples.
 
 -----------
 
@@ -187,7 +190,7 @@ ax = tm.simple_mapping(gdf, colour_list, ax, colour_tuples=colour_tuples, title=
 plt.show()
 ```
 
-colouringmap.theme_mapping 有三個主要的 functions: colouring_sequence (針對連續的統計數字的欄位作分層設色), colouring_category (應用預先準備好的分層、或是列別變項，若是後者建議用 category 類的調色盤), and simple_mapping (繪製簡單的分層設色圖)。 
+colouringmap.theme_mapping 有四個主要的 functions: colouring_sequence 及 colouring_list (針對連續的統計數字的欄位作分層設色,前者的輸入爲一個 gdf 及 一個欄位, 後者需要輸入一個 list), colouring_category (應用預先準備好的分層、或是列別變項，若是後者建議用 category 類的調色盤), and simple_mapping (繪製簡單的分層設色圖)。 
 
 colouringmap.breaking_levels 有一個主要的 function: get_levels, 這會針對一個欄位來進行分層，需要提供的 argument 包括分層方法、分幾層、或預先設定的分層切點，並且會產生兩個 list : 分層的 list (level_list) 及 切點值的 list (cuts point values)。 
 

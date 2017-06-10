@@ -3,6 +3,22 @@
 import breaking_levels
 import get_colours
 
+def colouring_list(alist, break_method='equal_interval', break_N=5, break_cuts=[], break_vmin=None, break_vmax=None, color_group='cmocean_sequential', color_name='Turbid_10', reverse=False):
+    level_list, cuts = breaking_levels.get_levels(alist, method=break_method, N=break_N, cuts=break_cuts, vmin=break_vmin, vmax=break_vmax)
+    colour_list, colour_tuples = get_colours.colour_list(level_list, color_group=color_group, color_name=color_name, reverse=False)
+
+    ## prepare for colour_level --> for legend
+    ## (level, value range, colour_hex)
+    colour_tuples2 = []
+    pre = 0
+    for v,c in colour_tuples:
+        r_start = cuts[pre]
+        r_stop = cuts[pre+1]
+        range_str = '%.2f - %.2f'%(r_start,r_stop)
+        colour_tuples2.append((v,range_str,c))
+        pre+=1
+    return level_list, colour_list, colour_tuples2
+
 def colouring_sequence(gdf, colorbysequence,  break_method='equal_interval', break_N=5, break_cuts=[], break_vmin=None, break_vmax=None, color_group='cmocean_sequential', color_name='Turbid_10', reverse=False):
     #assert len(colorbysequence)>0, 'please check the scalecolorby argument'
     vector = gdf[colorbysequence].tolist()
