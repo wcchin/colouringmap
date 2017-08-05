@@ -6,7 +6,7 @@ setup(
     version="0.0.1",
     
     author="Benny Chin",
-    author_email="wcchin.88@gmal.com",
+    author_email="wcchin.88@gmail.com",
 
     packages=['colouringmap'],
 

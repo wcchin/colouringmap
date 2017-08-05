@@ -7,10 +7,34 @@ def colour_list(level_list, color_group, color_name, reverse=False):
     hexcs = get_colours(color_group, color_name, reverse=reverse)
     level_set = list(set(level_list))
     #assert len(hexcs)>=len(level_set), 'number of groups should be less than or equal to the number of colors'
+    len_cols = len(hexcs)
+    if len(hexcs)<len(level_set):
+        print '!!!'
+        print 'number of colour is less then number of category'
+        print 'colours will be repeating'
+        print '!!!'
+        level_list = [ v%len_cols for v in level_list ]
+        #level_set = [ v%len_cols for v in level_set ]
     colour_list = [ hexcs[v] for v in level_list ]
-    colour_tuples = [ (v, hexcs[v]) for v in level_set ]
+    colour_tuples = [ (v, hexcs[v%len_cols]) for v in level_set ]
     return colour_list, colour_tuples
 
+"""
+def colour_cat(cat_list, color_group, color_name, reverse=False):
+    hexcs = get_colours(color_group, color_name, reverse=reverse)
+    cat_set = list(set(cat_list))
+    cat_ind_list = [ cat_set.index(v) for v in cat_list ]
+    if len(hexcs)<len(cat_set):
+        print '!!!'
+        print 'number of colour is less then number of category'
+        print 'colours will be repeating'
+        print '!!!'
+        len_cols = len(hexcs)
+        cat_ind_list = [ v%len_cols for v in cat_ind_list ]
+    colour_list = [ hexcs[v] for v in cat_ind_list ]
+    colour_tuples = [ (v, hexcs[i]) for i,v in enumerate(cat_set) ]
+    return colour_list, colour_tuples
+"""
 
 def get_colours(color_group, color_name, reverse=False):
     color_group = color_group.lower()
