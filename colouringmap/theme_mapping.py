@@ -7,6 +7,73 @@ from matplotlib.collections import PatchCollection
 import matplotlib.patches as mpatches
 from descartes import PolygonPatch
 
+def leveling_vector(gdf, bysequence, break_method='quantile', break_N=5, break_cuts=[], break_vmin=None, break_vmax=None):
+    vector = gdf[bysequence].tolist()
+    level_list, cuts = breaking_levels.get_levels(vector, method=break_method, N=break_N, cuts=break_cuts, vmin=break_vmin, vmax=break_vmax)
+    return level_list, cuts
+
+def get_sizes(gdf, bysequence, break_method, break_N, break_cuts, break_vmin, break_vmax, sizing, sizes, size_scale):
+    if sizing=='level':
+        level_list, cuts = leveling_vector(gdf, bysequence, break_method=break_method, break_N=break_N, break_cuts=break_cuts, break_vmin=break_vmin, break_vmax=break_vmax)
+        level_set = sorted(list(set(level_list)))
+        #print level_set
+        if sizes is None:
+            sizes = 12.
+        if isinstance(sizes, (list, tuple)):
+            if len(sizes)==len(level_set):
+                sizes2 = sizes
+            elif len(sizes)>1:
+                sr = max(sizes)-min(sizes)
+                sep = float(sr)/float(len(level_set)-1)
+                sizes2 = []
+                for i in range(len(level_set)):
+                    sizes2.append( min(sizes)+i*sep )
+            elif len(sizes)==1:
+                if size_scale is None:
+                    size_scale = 1.5
+                sep = (size_scale - 1.)*sizes[0]
+                sizes2 = []
+                for i in range(len(level_set)):
+                    sizes2.append( sizes[0]+i*sep )
+        elif isinstance(sizes, (int, long, float, complex)):
+            if size_scale is None:
+                size_scale = 1.2
+            sep = (size_scale - 1.)*sizes
+            sizes2 = []
+            for i in range(len(level_set)):
+                sizes2.append( sizes+i*sep )
+        else:
+            print 'sizes is wrong, should be a list or a number'
+            raise NameError('sizes')
+        #print sizes2
+
+        size_list = [ sizes2[level_set.index(x)] for x in level_list ]
+        return size_list
+    elif sizing=='graduated':
+        by_list = gdf[bysequence].tolist()
+        vmin = float(min(by_list))
+        vmax = float(max(by_list))
+        if isinstance(sizes, (int,long,float,complex)):
+            sizes = ( float(sizes), float(sizes*5) )
+        elif isinstance(sizes, (list, tuple)):
+            if len(sizes)>=2:
+                sizes = ( float(min(sizes)),float(max(sizes)) )
+            elif len(sizes)>0:
+                sizes = ( float(sizes[0]),float(sizes[0])*5. )
+            else:
+                sizes = ( 12.,60. )
+        else:
+            sizes = ( 12.,60. )
+        #srange = sizes[2]-sizes[1]
+        smin,smax = sizes
+        sep = (smax-smin)/(vmax-vmin)
+        size_list = [ smin + (v-vmin)*sep for v in by_list ]
+        return size_list
+    else:
+        print 'sizing parameter should be level or graduated'
+        raise NameError('sizing')
+
+
 def colouring_list(alist, break_method='equal_interval', break_N=5, break_cuts=[], break_vmin=None, break_vmax=None, color_group='cmocean_sequential', color_name='Turbid_10', reverse=False):
     level_list, cuts = breaking_levels.get_levels(alist, method=break_method, N=break_N, cuts=break_cuts, vmin=break_vmin, vmax=break_vmax)
     colour_list, colour_tuples = get_colours.colour_list(level_list, color_group=color_group, color_name=color_name, reverse=False)
@@ -26,7 +93,7 @@ def colouring_list(alist, break_method='equal_interval', break_N=5, break_cuts=[
 def colouring_sequence(gdf, colorbysequence,  break_method='quantile', break_N=5, break_cuts=[], break_vmin=None, break_vmax=None, color_group='cmocean_sequential', color_name='Turbid_10', reverse=False, legend_format='%.2f'):
     #assert len(colorbysequence)>0, 'please check the scalecolorby argument'
     vector = gdf[colorbysequence].tolist()
-    level_list, cuts = breaking_levels.get_levels(vector, method=break_method, N=break_N, cuts=break_cuts, vmin=break_vmin, vmax=break_vmax)
+    level_list, cuts = leveling_vector(gdf, colorbysequence, break_method=break_method, break_N=break_N, break_cuts=break_cuts, break_vmin=break_vmin, break_vmax=break_vmax)
     colour_list, colour_tuples = get_colours.colour_list(level_list, color_group=color_group, color_name=color_name, reverse=False)
 
     ## prepare for colour_level --> for legend
@@ -122,7 +189,7 @@ def simple_mapping(gdf, colour_list, ax, colour_tuples=None, title=None, xlim=No
 
 
 def test_sequential():
-    gdf = gpd.read_file('testdata/county.shp')
+    gdf = gpd.read_file('../testdata/county.shp')
     #print gdf.head()
     #print gdf.geometry.total_bounds
     """

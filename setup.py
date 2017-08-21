@@ -1,14 +1,18 @@
 from setuptools import setup
+import os
+
+rootFolder = 'colouringmap'
+pac_dirs = [ dirPath for dirPath, dirNames, fileNames in os.walk(rootFolder) ]
 
 setup(
     name="colouringmap",
 
-    version="0.0.1",
+    version="0.0.2",
     
     author="Benny Chin",
     author_email="wcchin.88@gmail.com",
-
-    packages=['colouringmap'],
+    
+    packages= pac_dirs,
 
     include_package_data=True,
 

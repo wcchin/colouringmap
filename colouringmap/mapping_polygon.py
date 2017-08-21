@@ -3,6 +3,7 @@
 #import breaking_levels
 #import get_colours
 import theme_mapping
+import mapping_utility
 
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
@@ -26,7 +27,7 @@ def map_shape(gdf, ax, fc='mediumslateblue', lw=1., ec='#000000', alpha=1., zord
 
 def map_colour(gdf, colour_col, ax, lw=1., ec='#000000', alpha=1., zorder=1, extend_context=True):
     colour_list = gdf[colour_col].tolist()
-    ax = mapping(gdf, colour_list, ax, colour_tuples=None, lw=lw, ec=ec, alpha=alpha, zorder=zorder, extend_context=extend_context)
+    ax = _mapping(gdf, colour_list, ax, colour_tuples=None, lw=lw, ec=ec, alpha=alpha, zorder=zorder, extend_context=extend_context)
     return ax
 
 def map_sequence(gdf, colorbysequence, ax, break_method='quantile', break_N=6, break_cuts=[], break_vmin=None, break_vmax=None, color_group='cmocean_sequential', color_name='Turbid_10', reverse=False, lw=1., ec='#000000', alpha=1., zorder=1, extend_context=True, add_legend=True, font_path=None, legend_loc='upper left', legend_format='%.2f'):
@@ -38,7 +39,7 @@ def map_sequence(gdf, colorbysequence, ax, break_method='quantile', break_N=6, b
         colour_tuples2 = colour_tuples
     else:
         colour_tuples2 = None
-    ax = mapping(gdf, colour_list, ax, colour_tuples=colour_tuples2, lw=lw, ec=ec, alpha=alpha, zorder=zorder, extend_context=extend_context, font_path=font_path, legend_loc=legend_loc)
+    ax = _mapping(gdf, colour_list, ax, colour_tuples=colour_tuples2, lw=lw, ec=ec, alpha=alpha, zorder=zorder, extend_context=extend_context, font_path=font_path, legend_loc=legend_loc)
     return ax
 
 
@@ -51,7 +52,7 @@ def map_category(gdf, colorbycategory, ax, color_group='tableau', color_name='Ta
         colour_tuples2 = colour_tuples
     else:
         colour_tuples2 = None
-    ax = mapping(gdf, colour_list, ax, colour_tuples=colour_tuples2, lw=lw, ec=ec, alpha=alpha, zorder=zorder, extend_context=extend_context, font_path=font_path, legend_loc=legend_loc)
+    ax = _mapping(gdf, colour_list, ax, colour_tuples=colour_tuples2, lw=lw, ec=ec, alpha=alpha, zorder=zorder, extend_context=extend_context, font_path=font_path, legend_loc=legend_loc)
     return ax
 
 
@@ -89,7 +90,7 @@ def add_scalebar(ax, unit='m', fixed_value=None):
     return ax
 
 
-def mapping(gdf, colour_list, ax, colour_tuples=None, xlim=None, ylim=None, ec='#FFFFFF', lw=1., alpha=1., zorder=1, extend_context=True, font_path=None, legend_loc='upper left'):
+def _mapping(gdf, colour_list, ax, colour_tuples=None, xlim=None, ylim=None, ec='#FFFFFF', lw=1., alpha=1., zorder=1, extend_context=True, font_path=None, legend_loc='upper left'):
     ## todo legend of the color_levels
 
     polys = gdf.geometry.tolist()
@@ -111,8 +112,9 @@ def mapping(gdf, colour_list, ax, colour_tuples=None, xlim=None, ylim=None, ec='
         patches.append(pa)
     ax.add_collection(PatchCollection(patches, match_original=True))
 
-    myfont = get_font(font_path=font_path)
+
     if not(colour_tuples is None):
+        myfont = get_font(font_path=font_path)
         handles = []
         for v,r,c in colour_tuples:
             #print type(r), r.decode('utf-8')
@@ -134,7 +136,8 @@ def get_font(font_path=None, font_size=12, font_style='normal'):
     return myfont
 
 def prepare_map(ax, map_context=None, background_colour=None, xlim=None, ylim=None, show_xy=False):
-
+    return mapping_utility.prepare_map(ax, map_context=map_context, background_colour=background_colour, xlim=xlim, ylim=ylim, show_xy=show_xy)
+"""
     ax.set_aspect('equal')
     if not show_xy:
         ax.set_xlabel('')
@@ -162,7 +165,8 @@ def prepare_map(ax, map_context=None, background_colour=None, xlim=None, ylim=No
         ax.set_facecolor(background_colour)
 
     return ax
-
+"""
+"""
 def test_sequential():
     gdf = gpd.read_file('../testdata/county.shp')
 
@@ -213,6 +217,7 @@ def test_randomcolor():
     gdf['clrs'] = clrs
     ax = map_colour(gdf, 'clrs', ax)
     plt.show()
+"""
 
 if __name__ == '__main__':
     #import seaborn as sns
