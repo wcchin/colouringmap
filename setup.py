@@ -14,7 +14,7 @@ setup(
     
     packages= pac_dirs,
 
-    #include_package_data=True,
+    include_package_data=True,
 
     url="https://github.com/wcchin/colouringmap",
 
