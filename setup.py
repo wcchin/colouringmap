@@ -13,8 +13,10 @@ setup(
     author_email="wcchin.88@gmail.com",
     
     packages= pac_dirs,
-    package_data = ['colouringmap/fonts','colouringmap/icons'], 
-
+    package_data = {
+        # If any package contains *.txt or *.rst files, include them:
+        '': ['*.txt', '*.ttf'],
+    },
     #include_package_data=True,
 
     url="https://github.com/wcchin/colouringmap",
