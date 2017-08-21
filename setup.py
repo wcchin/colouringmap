@@ -13,8 +13,9 @@ setup(
     author_email="wcchin.88@gmail.com",
     
     packages= pac_dirs,
+    package_data = ['colouringmap/fonts','colouringmap/icons'], 
 
-    include_package_data=True,
+    #include_package_data=True,
 
     url="https://github.com/wcchin/colouringmap",
 
@@ -44,5 +45,6 @@ setup(
         "palettable",
         "geopandas",
         "descartes",
+        "matplotlib_scalebar",
     ],
 )
