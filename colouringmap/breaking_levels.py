@@ -9,7 +9,7 @@ def get_levels(alist, method='equal_interval', N=5, cuts=[], vmin=None, vmax=Non
     #assert method in methods_list, "method not implemented."
     alist = [ float(i) for i in alist ]
     if method=='manual':
-        level_list, cuts = quantile(alist, cuts=cuts)
+        level_list, cuts = manual(alist, cuts=cuts)
     elif method=='equal_interval':
         level_list, cuts = equal_interval(alist, vmin=vmin, vmax=vmax, N=N)
     elif method=='quantile':
