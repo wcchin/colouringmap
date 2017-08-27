@@ -47,6 +47,9 @@ pip install git+https://github.com/wcchin/colouringmap.git#egg=colouringmap
 
 ### usage
 
+check the example directories
+
+
 ```python
 import geopandas as gpd
 from colouringmap import theme_mapping as tm 
