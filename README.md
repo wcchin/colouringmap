@@ -47,8 +47,13 @@ pip install git+https://github.com/wcchin/colouringmap.git#egg=colouringmap
 
 ### usage
 
-check the example directories
+#### Tutorial in ipynb mode
 
+check the example directories: https://github.com/wcchin/colouringmap/tree/master/example
+
+for better usage description.
+
+#### quick example
 
 ```python
 import geopandas as gpd
