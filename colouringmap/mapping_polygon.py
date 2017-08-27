@@ -80,7 +80,7 @@ def add_label(gdf, ax, labelcol, font_path=None, font_size=12, font_style='norma
         pt = g.representative_point()
         xx = pt.x
         yy = pt.y
-        ax.text(xx, yy, l, color=font_colour, fontproperties=myfont)
+        ax.text(xx, yy, l, color=font_colour, fontproperties=myfont, ha='center', va='center')
     return ax
 
 

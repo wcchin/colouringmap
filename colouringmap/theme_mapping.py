@@ -76,7 +76,7 @@ def get_sizes(gdf, bysequence, break_method, break_N, break_cuts, break_vmin, br
 
 def colouring_list(alist, break_method='equal_interval', break_N=5, break_cuts=[], break_vmin=None, break_vmax=None, color_group='cmocean_sequential', color_name='Turbid_10', reverse=False):
     level_list, cuts = breaking_levels.get_levels(alist, method=break_method, N=break_N, cuts=break_cuts, vmin=break_vmin, vmax=break_vmax)
-    colour_list, colour_tuples = get_colours.colour_list(level_list, color_group=color_group, color_name=color_name, reverse=False)
+    colour_list, colour_tuples = get_colours.colour_list(level_list, color_group=color_group, color_name=color_name, reverse=reverse)
 
     ## prepare for colour_level --> for legend
     ## (level, value range, colour_hex)
@@ -94,7 +94,7 @@ def colouring_sequence(gdf, colorbysequence,  break_method='quantile', break_N=5
     #assert len(colorbysequence)>0, 'please check the scalecolorby argument'
     vector = gdf[colorbysequence].tolist()
     level_list, cuts = leveling_vector(gdf, colorbysequence, break_method=break_method, break_N=break_N, break_cuts=break_cuts, break_vmin=break_vmin, break_vmax=break_vmax)
-    colour_list, colour_tuples = get_colours.colour_list(level_list, color_group=color_group, color_name=color_name, reverse=False)
+    colour_list, colour_tuples = get_colours.colour_list(level_list, color_group=color_group, color_name=color_name, reverse=reverse)
 
     ## prepare for colour_level --> for legend
     ## (level, value range, colour_hex)
@@ -127,8 +127,8 @@ def colouring_category(gdf, colorbycategory, color_group='tableau', color_name='
     else:
         cat_list = [ vset.index(v) for v in vector ] # convert names to integers
         vset2 = vset
-    print len(vset2)
-    print cat_list, cat_order
+    #print len(vset2)
+    #print cat_list, cat_order
     colour_list, colour_tuples = get_colours.colour_list(cat_list, color_group=color_group, color_name=color_name, reverse=False)
 
     ## prepare for colour_level --> for legend

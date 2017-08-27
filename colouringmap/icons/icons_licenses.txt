@@ -1,0 +1,13 @@
+brandico - SIL OFL/CC BY-SA 3.0
+elusive - SIL OFL 1.1
+entypo - CC BY-SA 4.0
+fontawesome - SIL OFL 1.1
+fontelico - SIL OFL 1.1
+iconic - SIL OFL 1.1
+linecons - CC BY
+maki - BSD
+meteocons - SIL OFL 1.1
+modernpics - SIL OFL 1.1
+typicons - SIL OFL 1.1
+weathercons - SIL OFL 1.1
+zocial - MIT

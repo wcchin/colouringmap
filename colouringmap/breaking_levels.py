@@ -108,7 +108,7 @@ if __name__ == '__main__':
     print 'generated a list of random values'
     alist = [ float(random.randint(0,100)) for i in range(100) ]
     print alist
-
+    """
     print 'tested equal interval'
     levels,cuts = get_levels(alist, N=5, method='equal_interval')
     print levels, cuts
@@ -117,14 +117,15 @@ if __name__ == '__main__':
     levels,cuts = get_levels(alist, N=4, method='quantile')
     print levels, cuts
 
-    print 'test standard deviation'
-    levels,cuts = get_levels(alist, N=6, method='standard_deviation')
-    print levels, cuts
-
     print 'tested head tail break'
     levels,cuts = get_levels(alist, N=6, method='head_tail_break')
     print levels, cuts
 
     print 'test natural break'
     levels,cuts = get_levels(alist, N=6, method='natural_break')
+    print levels, cuts
+    """
+
+    print 'test standard deviation'
+    levels,cuts = get_levels(alist, N=6, method='standard_deviation')
     print levels, cuts
