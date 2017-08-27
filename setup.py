@@ -7,7 +7,7 @@ pac_dirs = [ dirPath for dirPath, dirNames, fileNames in os.walk(rootFolder) ]
 setup(
     name="colouringmap",
 
-    version="0.0.2",
+    version="0.0.3",
     
     author="Benny Chin",
     author_email="wcchin.88@gmail.com",
@@ -22,7 +22,7 @@ setup(
     url="https://github.com/wcchin/colouringmap",
 
     license="LICENSE.txt",
-    description="a mapping tool for generating choropleth map from map data (shpfile), by breaking sequential values into groups, or beforehand prepared category.",
+    description="a mapping tool for generating choropleth map from map data (shpfile), by breaking sequential values into groups, or beforehand prepared category/level.",
 
     long_description=open("README.md").read(),
     
