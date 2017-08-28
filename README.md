@@ -55,6 +55,7 @@ for better usage description.
 
 Content table:
 
+0. break the numbers into levels: https://github.com/wcchin/colouringmap/blob/master/example/breaking%20a%20variable%20to%20levels.ipynb
 1. making category map: https://github.com/wcchin/colouringmap/blob/master/example/make_category_map.ipynb
 2. making a sequential map: https://github.com/wcchin/colouringmap/blob/master/example/make_sequential_map.ipynb
 3. drawing points (most frequently used functions): https://github.com/wcchin/colouringmap/blob/master/example/drawing%20points%20(part%201).ipynb
@@ -185,13 +186,14 @@ pip install git+https://github.com/wcchin/colouringmap.git#egg=colouringmap
 
 ### 使用
 
-#### ipynb 版較詳細教學
+#### ipynb 版較詳細教學 
 
 詳細的操作方式及範例，請參考這資料夾中的說明: https://github.com/wcchin/colouringmap/tree/master/example
 
 
 教學鏈接:
 
+0. 對一個數字列作分類: https://github.com/wcchin/colouringmap/blob/master/example/breaking%20a%20variable%20to%20levels.ipynb
 1. 作一個類別圖面量圖(有一個欄位記錄polygon的類別): https://github.com/wcchin/colouringmap/blob/master/example/make_category_map.ipynb
 2. 作一個分層設色圖(有一個欄位記錄著一個數字的變項資訊): https://github.com/wcchin/colouringmap/blob/master/example/make_sequential_map.ipynb
 3. 畫點資料 (常用的基本點功能): https://github.com/wcchin/colouringmap/blob/master/example/drawing%20points%20(part%201).ipynb
