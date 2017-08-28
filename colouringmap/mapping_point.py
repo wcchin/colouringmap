@@ -13,12 +13,63 @@ from matplotlib.font_manager import FontProperties
 from matplotlib_scalebar.scalebar import ScaleBar
 #import matplotlib.patches as mpatches
 from matplotlib.text import TextPath
+import matplotlib.lines as mlines
 
 
 def map_scatter(gdf, ax, size=12, marker='.', facecolor='navy', zorder=1, extend_context=True, alpha=1.):
     colour_list = [facecolor]*len(gdf)
     sizes = [size]*len(gdf)
     ax = _mapping(gdf, colour_list, ax, marker=marker, sizes=sizes, alpha=alpha, zorder=zorder, extend_context=extend_context,)
+    return ax
+
+def map_category(gdf, cat_column, ax, cat_order=None, marker_order=None, size_order=None, colour_order=None, size=12, facecolor='navy', zorder=1, extend_context=False, alpha=1.):
+    default_marker_list = ['.', '*', '+', ',',  '<', '>','^', '_',  'D', 'H', 'P', 'X', 'd', 'h', 'o', 'p', 's', 'v', 'x', '|', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,'1', '2', '3', '4', '8', ]
+
+    if cat_order is None:
+        catset = list(set(gdf[cat_column].tolist()))
+    else:
+        catset = cat_order
+
+    markerset = []
+    if not(marker_order is None):
+        markerset = marker_order
+    i = 0
+    while len(markerset)<len(catset):
+        if default_marker_list[i] not in markerset:
+            markerset.append(default_marker_list[i])
+        i+=1
+        if i>=len(default_marker_list):
+            j = len(catset)-len(markerset)
+            if j<=len(default_marker_list):
+                markerset.extend(default_marker_list[:j])
+            else:
+                markerset.extend(default_marker_list)
+                i = len(default_marker_list)-1
+            print '!!! warning: repeated markers !!!'
+
+    sizeset = []
+    if not(size_order is None):
+        sizeset = size_order
+    while len(sizeset)<len(catset):
+        sizeset.append(size)
+    colourset = []
+    if not(colour_order is None):
+        colourset = colour_order
+    while len(colourset)<len(catset):
+        colourset.append(facecolor)
+
+    for c,m,s,o in zip(catset, markerset, sizeset, colourset):
+        temp_gdf = gdf[gdf[cat_column]==c]
+        olist = [o]*len(temp_gdf)
+        slist = [s]*len(temp_gdf)
+        ax = _mapping(temp_gdf, olist, ax, marker=m, sizes=slist, alpha=alpha, zorder=zorder, extend_context=False,)
+
+    if extend_context:
+        minx, miny, maxx, maxy = gdf.geometry.total_bounds
+        xlim = [minx,maxx]
+        ylim = [miny,maxy]
+        ax.set_xlim(xlim)
+        ax.set_ylim(ylim)
     return ax
 
 def map_colour(gdf, colour_column, ax, size=12, marker='.', zorder=1., extend_context=True, alpha=1.):
@@ -184,12 +235,27 @@ def _mapping(gdf, colour_list, ax, colour_tuples=None, marker='.', xlim=None, yl
     if not(colour_tuples is None):
         myfont = get_font(font_path=font_path)
         handles = []
-        w, ifont = marker
-        tp = TextPath((0,0), w, prop=ifont, size=12)
-        for v,r,c in colour_tuples:
-            patch = ax.scatter([-1000,],[-1000,], s=500, marker=tp,  c=c,label=r.decode('utf-8'))
-            handles.append(patch)
-        plt.legend(handles=handles, prop=myfont, loc=legend_loc)
+        if isinstance(marker, tuple):
+            w, ifont = marker
+            tp = TextPath((0,0), w, prop=ifont, size=12)
+            for v,r,c in colour_tuples:
+                patch = ax.scatter([-1000,],[-1000,], s=500, marker=tp,  c=c,label=r.decode('utf-8'))
+                handles.append(patch)
+            ax.legend(handles=handles, prop=myfont, loc=legend_loc)
+        elif isinstance(marker, str):
+            msize = sizes
+            if isinstance(sizes, (list,tuple)):
+                msize = sizes[0]
+            elif isinstance(sizes, (float,int)):
+                msize = sizes
+            else:
+                msize = 8
+            for v,r,c in colour_tuples:
+                mar = mlines.Line2D([], [], linestyle="None", color=c, marker=marker,
+                          markersize=12, label=r.decode('utf-8'))
+                handles.append(mar)
+            ax.legend(handles=handles, prop=myfont, loc=legend_loc)
+
     return ax
 
 def prepare_map(ax, map_context=None, background_colour=None, xlim=None, ylim=None, show_xy=False):

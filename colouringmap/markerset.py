@@ -4,6 +4,7 @@ import os
 import pickle
 from matplotlib.font_manager import FontProperties
 
+
 def get_icons(icon_set, size=12):
     mdir = os.path.dirname(__file__)
     fname = os.path.join(mdir, 'icons', icon_set+'.ttf')
@@ -98,6 +99,20 @@ def zocial(icon_name):
     myfont = get_icons('zocial')
     return unichr(iconsmap[icon_name]), myfont
 
+def show_icon(marker, face_colour='navy', size=12, alpha=1., background_colour ='w'):
+    import matplotlib.pyplot as plt
+    fig,ax = plt.subplots(figsize=(5,5))
+    ax.set_aspect('equal')
+    ax.set_facecolor(background_colour)
+    w, ifont = marker
+    ax.text(0, 0, w, fontproperties=ifont, size=size, color=face_colour, alpha=alpha, ha='center', va='center')
+    ax.set_xlim([-1,1])
+    ax.set_ylim([-1,1])
+    return ax
+
 if __name__ == '__main__':
+    import matplotlib.pyplot as plt
     ii = maki('airport')
     print ii
+    show_icon(ii)
+    plt.show()
