@@ -23,9 +23,15 @@ ps: This is designed to use with vmapper, a vector mapping tool in python that g
 
 
 ### dependencies
+
+- geopandas: everything is based on geopandas
+- matplotlib/descartes/shapely: the foundation of the mapping
 - numpy: quantile breaks
 - jenkspy: natural break
 - palettable: getting color map
+- matplotlib_scalebar: for making the scale bar
+
+installing geopandas can be hard for those who use Windows. (actually is the Fiona that is hard to be installed). Good Luck.
 
 ### install
 
@@ -162,9 +168,16 @@ ps: 這工具主要是爲了 vmapper 而設計， vmapper 是一個方便的畫�
 不過後來想到其實「分層」，及「設色」兩個動作在畫地圖時很常會用到，所以就將這工具獨立出來。後續會再花點時間把功能加入到 vmapper 中。
 
 ### dependencies
+
+- geopandas: 所有東西基本上都是基於 geopandas
+- matplotlib/descartes/shapely: 畫地圖的基礎
 - numpy: quantile breaks 
 - jenkspy: natural break 
 - palettable: 調色盤，這小工具會用這調色盤來獲取顏色的值
+- matplotlib_scalebar: 加入地圖的比例尺
+
+在 Windows 安裝 geopandas 可能會有點複雜 (其實是 Fiona 不容易安裝)。 保重。
+
 
 ### 安裝
 
