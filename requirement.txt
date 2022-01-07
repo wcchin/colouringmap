@@ -2,7 +2,7 @@ colouringmap==0.0.1
 click==6.7  # License :: OSI Approved :: BSD License
 click-plugins==1.0.3  # New BSD
 cligj==0.4.0  # BSD
-cvxopt==1.1.8  # GNU GPL version 3
+cvxopt==1.2.7  # GNU GPL version 3
 cycler==0.10.0  # BSD
 descartes==1.1.0  # BSD
 enum34==1.1.6  # BSD License
