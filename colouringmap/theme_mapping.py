@@ -1,7 +1,7 @@
  # -*- coding: utf-8 -*-
 
-import breaking_levels
-import get_colours
+from . import breaking_levels
+from . import get_colours
 import matplotlib.pyplot as plt
 from matplotlib.collections import PatchCollection
 import matplotlib.patches as mpatches
@@ -16,7 +16,7 @@ def get_sizes(gdf, bysequence, break_method, break_N, break_cuts, break_vmin, br
     if sizing=='level':
         level_list, cuts = leveling_vector(gdf, bysequence, break_method=break_method, break_N=break_N, break_cuts=break_cuts, break_vmin=break_vmin, break_vmax=break_vmax)
         level_set = sorted(list(set(level_list)))
-        #print level_set
+        #print(level_set)
         if sizes is None:
             sizes = 12.
         if isinstance(sizes, (list, tuple)):
@@ -43,9 +43,9 @@ def get_sizes(gdf, bysequence, break_method, break_N, break_cuts, break_vmin, br
             for i in range(len(level_set)):
                 sizes2.append( sizes+i*sep )
         else:
-            print 'sizes is wrong, should be a list or a number'
+            print('sizes is wrong, should be a list or a number')
             raise NameError('sizes')
-        #print sizes2
+        #print(sizes2)
 
         size_list = [ sizes2[level_set.index(x)] for x in level_list ]
         return size_list
@@ -70,7 +70,7 @@ def get_sizes(gdf, bysequence, break_method, break_N, break_cuts, break_vmin, br
         size_list = [ smin + (v-vmin)*sep for v in by_list ]
         return size_list
     else:
-        print 'sizing parameter should be level or graduated'
+        print('sizing parameter should be level or graduated')
         raise NameError('sizing')
 
 
@@ -127,8 +127,8 @@ def colouring_category(gdf, colorbycategory, color_group='tableau', color_name='
     else:
         cat_list = [ vset.index(v) for v in vector ] # convert names to integers
         vset2 = vset
-    #print len(vset2)
-    #print cat_list, cat_order
+    #print(len(vset2))
+    #print(cat_list, cat_order)
     colour_list, colour_tuples = get_colours.colour_list(cat_list, color_group=color_group, color_name=color_name, reverse=False)
 
     ## prepare for colour_level --> for legend
@@ -136,7 +136,7 @@ def colouring_category(gdf, colorbycategory, color_group='tableau', color_name='
     colour_tuples2 = []
     for vind,c in colour_tuples:
         o = vset2[vind]
-        #print vind
+        #print(vind)
         if not isinstance(o, str):#type()!=str:
             if isinstance(o, (int, long, float, complex)):
                 cat_str = str(o)
@@ -173,7 +173,7 @@ def simple_mapping(gdf, colour_list, ax, colour_tuples=None, title=None, xlim=No
     for i in range(len(polys)):
         P = polys[i]
         co = colour_list[i]
-        #print co
+        #print(co)
         pa = PolygonPatch(P,fc=co,ec="white", lw=lw, alpha=0.9, zorder=4)
         patches.append(pa)
     ax.add_collection(PatchCollection(patches, match_original=True))
@@ -190,12 +190,12 @@ def simple_mapping(gdf, colour_list, ax, colour_tuples=None, title=None, xlim=No
 
 def test_sequential():
     gdf = gpd.read_file('../testdata/county.shp')
-    #print gdf.head()
-    #print gdf.geometry.total_bounds
+    #print(gdf.head())
+    #print(gdf.geometry.total_bounds)
     """
     areas = gdf.area.tolist()
     lvl, cuts = breaking_levels.get_levels(areas)
-    print lvl,cuts
+    print(lvl,cuts)
     """
     level_list, colour_list, colour_tuples = colouring_sequence(gdf, colorbysequence='area', break_method='natural_break')
 

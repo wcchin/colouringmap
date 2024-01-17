@@ -9,10 +9,10 @@ def colour_list(level_list, color_group, color_name, reverse=False):
     #assert len(hexcs)>=len(level_set), 'number of groups should be less than or equal to the number of colors'
     len_cols = len(hexcs)
     if len(hexcs)<len(level_set):
-        print '!!!'
-        print 'number of colour is less then number of level/category'
-        print 'colours will be repeating'
-        print '!!!'
+        print( '!!!')
+        print( 'number of colour is less then number of level/category')
+        print( 'colours will be repeating')
+        print( '!!!')
         level_list = [ v%len_cols for v in level_list ]
         #level_set = [ v%len_cols for v in level_set ]
     colour_list = [ hexcs[v] for v in level_list ]
@@ -25,10 +25,10 @@ def colour_cat(cat_list, color_group, color_name, reverse=False):
     cat_set = list(set(cat_list))
     cat_ind_list = [ cat_set.index(v) for v in cat_list ]
     if len(hexcs)<len(cat_set):
-        print '!!!'
-        print 'number of colour is less then number of category'
-        print 'colours will be repeating'
-        print '!!!'
+        print( '!!!')
+        print( 'number of colour is less then number of category')
+        print( 'colours will be repeating')
+        print( '!!!')
         len_cols = len(hexcs)
         cat_ind_list = [ v%len_cols for v in cat_ind_list ]
     colour_list = [ hexcs[v] for v in cat_ind_list ]
@@ -70,8 +70,8 @@ def get_map(color_group, color_name, reverse=False):
         cmap = wesanderson(color_name, reverse=reverse)
     else:
         cmap = None
-        print 'color_group not supported, please check palettable v3.0.0'
-        print 'return None'
+        print( 'color_group not supported, please check palettable v3.0.0')
+        print( 'return None')
     return cmap
 
 def cmocean_diverging(color_name, reverse=False):
@@ -110,8 +110,8 @@ def wesanderson(color_name, reverse=False):
 if __name__ == '__main__':
     a = get_colours('mycarta', 'CubeYF_7', reverse=False)
     b = get_colours('mycarta', 'CubeYF_7', reverse=True)
-    #print a
-    #print b
-    #print a==b
-    print mycarta('CubeYF_7', reverse=True).hex_colors
-    print mycarta('CubeYF_7', reverse=False).hex_colors
+    #print( a)
+    #print( b)
+    #print( a==b)
+    print( mycarta('CubeYF_7', reverse=True).hex_colors)
+    print( mycarta('CubeYF_7', reverse=False).hex_colors)

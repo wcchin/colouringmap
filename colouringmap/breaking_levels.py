@@ -22,7 +22,7 @@ def get_levels(alist, method='equal_interval', N=5, cuts=[], vmin=None, vmax=Non
     elif method=='head_tail_break':
         level_list, cuts = head_tail_break(alist, N=N)
     else:
-        print 'method not implemented:', method
+        print('method not implemented:', method)
         level_list, cuts = None,None
         ## should change to raise Exception and exit
         ## should not return any things
@@ -76,7 +76,6 @@ def standard_deviation(alist, N=5):
 def natural_break(alist, N=5):
     cuts = jenkspy.jenks_breaks(alist, nb_class=N)
     cuts = cuts[1:]
-    #print len(cuts)
     level_list = list_convert_to_level(alist, cuts)
     return level_list, cuts
 
@@ -105,27 +104,27 @@ def list_convert_to_level(alist, cuts):
 
 if __name__ == '__main__':
     import random
-    print 'generated a list of random values'
+    print('generated a list of random values')
     alist = [ float(random.randint(0,100)) for i in range(100) ]
-    print alist
+    print(alist)
     """
-    print 'tested equal interval'
+    print('tested equal interval')
     levels,cuts = get_levels(alist, N=5, method='equal_interval')
-    print levels, cuts
+    print(levels, cuts)
 
-    print 'test quantile'
+    print('test quantile')
     levels,cuts = get_levels(alist, N=4, method='quantile')
-    print levels, cuts
+    print( levels, cuts)
 
-    print 'tested head tail break'
+    print( 'tested head tail break')
     levels,cuts = get_levels(alist, N=6, method='head_tail_break')
-    print levels, cuts
+    print( levels, cuts)
 
-    print 'test natural break'
+    print( 'test natural break')
     levels,cuts = get_levels(alist, N=6, method='natural_break')
-    print levels, cuts
+    print( levels, cuts)
     """
 
-    print 'test standard deviation'
+    print('test standard deviation')
     levels,cuts = get_levels(alist, N=6, method='standard_deviation')
-    print levels, cuts
+    print(levels, cuts)
